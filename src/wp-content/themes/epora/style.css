@@ -1,0 +1,25 @@
+/*!
+Theme Name: Epora
+Theme URI: https://wp.hixstudio.net/epora
+Author: Theme_Pure
+Author URI: https://themeforest.net/user/theme_pure/portfolio
+Description: Epora - Online Courses & Education WordPress Theme
+Version: 1.0.6
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: epora
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+
+.course-single .lp-content-area{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.course-single .menu-quick-links-container #menu-quick-links{
+    padding-left: 2rem;
+}
+
