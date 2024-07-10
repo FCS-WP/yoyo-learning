@@ -1,0 +1,431 @@
+/*Fees*/
+
+.fees-container {
+  position: relative;
+  display: block;
+  background: #fafafa;
+  @include tablet {
+    padding: 140px 60px 100px;
+  }
+}
+
+.fees-filter {
+  position: relative;
+  display: block;
+  padding: 35px 35px;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.fees-filter h4 {
+  color: #5c215e;
+  padding-bottom: 30px;
+}
+
+.fees-filter .form-group {
+  margin-bottom: 20px;
+}
+
+.fees-filter .nice-select {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 18px 40px 18px 30px;
+}
+
+.fees-filter .nice-select.open {
+  border-radius: 30px 30px 0px 0px !important;
+}
+
+.fees-filter .nice-select .list {
+  width: 100.8%;
+  margin: 0px -1px;
+  padding-bottom: 25px;
+  border: 1px solid #3a5aa9;
+  border-width: 0px 1px 1px 1px;
+  border-radius: 0px 0px 30px 30px;
+}
+
+.fees-filter .nice-select .option:nth-child(even),
+.fees-filter .nice-select .list:hover .option:not(:hover):nth-child(even) {
+  background: #eaf4fe !important;
+}
+
+.fees-filter .nice-select .option {
+  color: #666666;
+  padding: 10px 30px;
+}
+
+.fees-filter .nice-select .option:hover,
+.fees-filter .nice-select .option.focus,
+.fees-filter .nice-select .option.selected.focus {
+  background: #3a5aa9 !important;
+}
+
+.fees-filter .btn-primary {
+  width: 100%;
+}
+
+.rest-password {
+  font-family: "Fredoka", sans-serif;
+  position: relative;
+  display: block;
+  text-align: center;
+  padding: 10px 0px 0px;
+}
+
+.rest-password a {
+  font-size: 15px;
+  color: #fe8f08;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.rest-password a:hover {
+  color: #2c82d5;
+}
+
+.fees-dataTable {
+  position: relative;
+  display: block;
+}
+
+.fees-dataTable .dataTables_wrapper .row:first-child {
+  display: none;
+}
+
+.dataTables_paginate li.previous a.page-link,
+.dataTables_paginate li.next a.page-link {
+  padding: 0 30px;
+  font-size: 16px;
+  width: auto !important;
+}
+
+.fees-dataTable .dt-row {
+  display: block;
+}
+
+table.dataTable {
+  margin-top: 0px !important;
+}
+
+.fees-dataTable thead {
+  border-color: #ffffff;
+}
+
+.fees-dataTable thead tr th {
+  color: #2c82d5;
+  font-weight: 700;
+  padding: 0px 15px 45px;
+}
+
+.fees-dataTable thead tr th:first-child {
+  padding: 0px 45px 45px;
+}
+
+.fees-dataTable thead tr th::after {
+  color: #2c82d5;
+  top: 20px !important;
+  opacity: 1 !important;
+}
+
+.fees-dataTable thead tr th::before {
+  color: #2c82d5;
+  top: 5px !important;
+  bottom: auto !important;
+}
+
+.fees-dataTable tbody tr td {
+  color: #1a1a1a;
+  min-width: 100px;
+  padding: 22px 15px;
+  background: #ffffff;
+  border-right: none;
+  border-left: none;
+  border-top: none;
+}
+
+.fees-dataTable tbody tr td:first-child {
+  max-width: 150px;
+  padding: 22px 45px;
+}
+.fees-dataTable tbody,
+.fees-dataTable table {
+  border: 0 !important;
+}
+
+.fees-dataTable tbody tr:last-child td {
+  border-color: transparent;
+}
+
+.fees-dataTable tbody tr:first-child td:first-child {
+  border-top-left-radius: 20px;
+}
+
+.fees-dataTable tbody tr:first-child td:last-child {
+  border-top-right-radius: 20px;
+}
+
+.fees-dataTable tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 20px;
+}
+
+.fees-dataTable tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 20px;
+}
+
+// /* Nice Select */
+
+.nice-select {
+  width: 100%;
+  height: 60px !important;
+  font-size: 16px;
+  font-weight: 300;
+  color: #cccccc;
+  border-radius: 30px !important;
+  line-height: normal;
+  background: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 16px 40px 16px 30px !important;
+}
+
+.nice-select,
+.nice-select .list {
+  font-size: 18px;
+  font-weight: 300;
+  color: #cccccc;
+  background: #fafafa;
+}
+
+.nice-select.open,
+.nice-select:active,
+.nice-select:focus {
+  border-color: #3a5aa9;
+  background-color: #fafafa;
+}
+
+.nice-select:hover {
+  border-color: #3a5aa9;
+}
+
+.nice-select .current {
+  /* overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	white-space: pre-wrap; */
+}
+
+.nice-selected .nice-select .current {
+  opacity: 1;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+// // .nice-select:after {
+// //   font-family: "Font Awesome 6 Free";
+// //   position: absolute;
+// //   border: none;
+// //   top: 50%;
+// //   right: 20px;
+// //   width: auto;
+// //   height: auto;
+// //   color: #000000;
+// //   display: block;
+// //   line-height: 1;
+// //   font-size: 14px;
+// //   content: "\f107";
+// //   font-weight: 900;
+// //   pointer-events: none;
+// //   margin: 0px !important;
+// //   -webkit-transform: rotate(0deg);
+// //   -ms-transform: rotate(0deg);
+// //   transform: rotate(0deg);
+// //   transform: translateY(-50%) !important;
+// // }
+
+// .nice-select.open:after,
+// .nice-select:hover:after {
+//   color: #3a5aa9 !important;
+//   -webkit-transform: rotate(0deg);
+//   -ms-transform: rotate(0deg);
+//   transform: rotate(0deg);
+// }
+
+// // .nice-select.open:after {
+// //   content: "\f106";
+// // }
+
+.nice-select.open .list {
+  opacity: 1;
+  pointer-events: initial;
+  transform: scale(1) translateY(0);
+}
+
+.nice-select.disabled {
+  opacity: 0.5;
+  color: #ffffff;
+  pointer-events: none;
+  border-color: #ffffff;
+}
+
+.nice-select.disabled:after {
+  border-color: #ffffff;
+}
+
+.nice-select .list {
+  position: absolute;
+  margin-top: 0px;
+  opacity: 0;
+  top: 100%;
+  left: 0;
+  z-index: 9999;
+  min-width: 100%;
+  overflow: hidden;
+  padding: 0px 0px;
+  overflow-y: auto;
+  max-height: 300px;
+  border-radius: 0px;
+  pointer-events: none;
+  box-sizing: border-box;
+  transform-origin: 50% 0;
+  background-color: #fafafa;
+  transform: scale(0.75) translateY(-25px);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s cubic-bezier(0.5, 0, 0, 1.25), opacity 0.15s ease-out;
+}
+
+.nice-select .list:hover .option:not(:hover) {
+  color: #1d1d1d !important;
+  background-color: transparent !important;
+}
+
+.nice-select .option {
+  font-weight: 400;
+  cursor: pointer;
+  outline: none;
+  color: #1d1d1d;
+  font-size: 16px;
+  min-height: 40px;
+  background: none;
+  line-height: 30px;
+  padding: 5px 20px;
+}
+
+.nice-select .option:hover,
+.nice-select .option.focus,
+.nice-select .option.selected.focus {
+  color: #ffffff;
+  background: #3a5aa9;
+}
+
+.nice-select .option.selected {
+  font-weight: 400;
+}
+
+.nice-select .option.disabled {
+  opacity: 0.5;
+  color: #ffffff;
+  cursor: default;
+  background-color: transparent;
+}
+
+table.dataTable thead > tr > th.sorting {
+  position: relative;
+  cursor: pointer;
+  padding: 0 20px 20px;
+  vertical-align: top;
+  border: none;
+}
+
+table.dataTable thead > tr > th.sorting:before,
+table.dataTable thead > tr > th.sorting_asc:before,
+table.dataTable thead > tr > th.sorting_desc:before,
+table.dataTable thead > tr > th.sorting_asc_disabled:before,
+table.dataTable thead > tr > th.sorting_desc_disabled:before,
+table.dataTable thead > tr > td.sorting:before,
+table.dataTable thead > tr > td.sorting_asc:before,
+table.dataTable thead > tr > td.sorting_desc:before,
+table.dataTable thead > tr > td.sorting_asc_disabled:before,
+table.dataTable thead > tr > td.sorting_desc_disabled:before {
+  bottom: 50%;
+  content: "▲";
+  content: "▲"/"";
+}
+table.dataTable thead > tr > th.sorting:before,
+table.dataTable thead > tr > th.sorting:after,
+table.dataTable thead > tr > th.sorting_asc:before,
+table.dataTable thead > tr > th.sorting_asc:after,
+table.dataTable thead > tr > th.sorting_desc:before,
+table.dataTable thead > tr > th.sorting_desc:after,
+table.dataTable thead > tr > th.sorting_asc_disabled:before,
+table.dataTable thead > tr > th.sorting_asc_disabled:after,
+table.dataTable thead > tr > th.sorting_desc_disabled:before,
+table.dataTable thead > tr > th.sorting_desc_disabled:after,
+table.dataTable thead > tr > td.sorting:before,
+table.dataTable thead > tr > td.sorting:after,
+table.dataTable thead > tr > td.sorting_asc:before,
+table.dataTable thead > tr > td.sorting_asc:after,
+table.dataTable thead > tr > td.sorting_desc:before,
+table.dataTable thead > tr > td.sorting_desc:after,
+table.dataTable thead > tr > td.sorting_asc_disabled:before,
+table.dataTable thead > tr > td.sorting_asc_disabled:after,
+table.dataTable thead > tr > td.sorting_desc_disabled:before,
+table.dataTable thead > tr > td.sorting_desc_disabled:after {
+  position: absolute;
+  display: block;
+  opacity: 0.125;
+  right: 10px;
+  line-height: 9px;
+  font-size: 14px;
+}
+table.dataTable thead > tr > th.sorting:before{
+  font-size: 12px !important;
+  right: 12px !important;
+}
+
+table.dataTable thead > tr > th.sorting:after,
+table.dataTable thead > tr > th.sorting_asc:after,
+table.dataTable thead > tr > th.sorting_desc:after,
+table.dataTable thead > tr > th.sorting_asc_disabled:after,
+table.dataTable thead > tr > th.sorting_desc_disabled:after,
+table.dataTable thead > tr > td.sorting:after,
+table.dataTable thead > tr > td.sorting_asc:after,
+table.dataTable thead > tr > td.sorting_desc:after,
+table.dataTable thead > tr > td.sorting_asc_disabled:after,
+table.dataTable thead > tr > td.sorting_desc_disabled:after {
+  top: 50%;
+  content: "▼";
+  content: "▼" / "";
+}
+table.dataTable thead > tr > th.sorting:before,
+table.dataTable thead > tr > th.sorting:after,
+table.dataTable thead > tr > th.sorting_asc:before,
+table.dataTable thead > tr > th.sorting_asc:after,
+table.dataTable thead > tr > th.sorting_desc:before,
+table.dataTable thead > tr > th.sorting_desc:after,
+table.dataTable thead > tr > th.sorting_asc_disabled:before,
+table.dataTable thead > tr > th.sorting_asc_disabled:after,
+table.dataTable thead > tr > th.sorting_desc_disabled:before,
+table.dataTable thead > tr > th.sorting_desc_disabled:after,
+table.dataTable thead > tr > td.sorting:before,
+table.dataTable thead > tr > td.sorting:after,
+table.dataTable thead > tr > td.sorting_asc:before,
+table.dataTable thead > tr > td.sorting_asc:after,
+table.dataTable thead > tr > td.sorting_desc:before,
+table.dataTable thead > tr > td.sorting_desc:after,
+table.dataTable thead > tr > td.sorting_asc_disabled:before,
+table.dataTable thead > tr > td.sorting_asc_disabled:after,
+table.dataTable thead > tr > td.sorting_desc_disabled:before,
+table.dataTable thead > tr > td.sorting_desc_disabled:after {
+  position: absolute;
+  display: block;
+  opacity: 0.125;
+  right: 10px;
+  line-height: 9px;
+  font-size: 14px;
+}
