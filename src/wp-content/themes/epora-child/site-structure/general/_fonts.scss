@@ -1,10 +1,8 @@
-/* Font face for web template */
-@include font-face(Arial, "../fonts/Arial/SVN-Arial-Regular", 500); 
-@include font-face(Arial, "../fonts/Arial/SVN-Arial-Bold", 900); 
-@include font-face(Arial, "../fonts/Arial/SVN-Arial-Italic", 500); 
-@include font-face(Arial, "../fonts/Arial/SVN-Arial-Bold-Italic", 900); 
-
-
-body {
-	font-family: "Arial", serif !important;
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+  .hero-title-black {
+    font-size: 40px !important;
+  }
+}
+.tp-bline-stitle{
+	text-transform: capitalize !important;
 }
