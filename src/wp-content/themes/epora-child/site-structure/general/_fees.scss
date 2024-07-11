@@ -98,13 +98,6 @@
   display: none;
 }
 
-.dataTables_paginate li.previous a.page-link,
-.dataTables_paginate li.next a.page-link {
-  padding: 0 30px;
-  font-size: 16px;
-  width: auto !important;
-}
-
 .fees-dataTable .dt-row {
   display: block;
 }
@@ -383,7 +376,7 @@ table.dataTable thead > tr > td.sorting_desc_disabled:after {
   line-height: 9px;
   font-size: 14px;
 }
-table.dataTable thead > tr > th.sorting:before{
+table.dataTable thead > tr > th.sorting:before {
   font-size: 12px !important;
   right: 12px !important;
 }
@@ -428,4 +421,11 @@ table.dataTable thead > tr > td.sorting_desc_disabled:after {
   right: 10px;
   line-height: 9px;
   font-size: 14px;
+}
+
+table.dataTable thead > tr > th.sorting_asc:before,
+table.dataTable thead > tr > th.sorting_desc:after,
+table.dataTable thead > tr > td.sorting_asc:before,
+table.dataTable thead > tr > td.sorting_desc:after {
+  opacity: 0.6;
 }

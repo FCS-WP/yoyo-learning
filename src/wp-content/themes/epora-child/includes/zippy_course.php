@@ -4,7 +4,19 @@ add_shortcode('course_table', 'course_table_callback');
 
 function course_table_callback()
 {
+  $post_per_page = 3;
+  $args = array(
+    'post_type'     => 'lp_course',
+    'orderby'          => isset($_GET['orderby']) ? $_GET['orderby'] : 'title',
+    'order'            =>  isset($_GET['order']) ? $_GET['order'] : 'asc',
+    'posts_per_page' => $post_per_page,
+    'paged' => (get_query_var('paged') ? get_query_var('paged') : 1),
+  );
+  $courses = new WP_Query($args);
 
+  $max_num_pages = $courses->max_num_pages;
+
+  $count = $courses->found_posts;
 ?>
   <div class="fees-container">
     <div class="row gx-5">
@@ -141,12 +153,14 @@ function course_table_callback()
           <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
             <div class="row">
               <div class="col-sm-12 col-md-6">
-                <div class="dataTables_length" id="dataTable_length"><label>Show <select name="dataTable_length" aria-controls="dataTable" class="form-select form-select-sm">
+                <div class="dataTables_length" id="dataTable_length">
+                  <label>Show <select name="dataTable_length" aria-controls="dataTable" class="form-select form-select-sm">
                       <option value="10">10</option>
                       <option value="25">25</option>
                       <option value="50">50</option>
                       <option value="100">100</option>
-                    </select> entries</label></div>
+                    </select> entries</label>
+                </div>
               </div>
               <div class="col-sm-12 col-md-6">
                 <div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label></div>
@@ -154,82 +168,53 @@ function course_table_callback()
             </div>
             <div class="row dt-row">
               <div class="col-sm-12">
-                <table id="dataTable" class="table dataTable no-footer" aria-describedby="dataTable_info">
-                  <thead>
-                    <tr>
-                      <th class="sorting sorting_asc"  aria-sort="ascending" aria-label="Course: activate to sort column descending" style="width: 172.938px;">Course</th>
-                      <th class="sorting"  aria-label="Day: activate to sort column ascending" style="width: 91.125px;">Day</th>
-                      <th class="sorting"  aria-label="Time: activate to sort column ascending" style="width: 124.297px;">Time</th>
-                      <th class="sorting"  aria-label="Sessions: activate to sort column ascending" style="width: 91.125px;">Sessions</th>
-                      <th class="sorting"  aria-label="From: activate to sort column ascending" style="width: 91.125px;">From</th>
-                      <th class="sorting"  aria-label="To: activate to sort column ascending" style="width: 91.125px;">To</th>
-                      <th class="sorting"  aria-label="Fees: activate to sort column ascending" style="width: 91.125px;">Fees</th>
-                      <th class="sorting"  aria-label="Venue: activate to sort column ascending" style="width: 91.125px;">Venue</th>
-                      <th class="sorting"  aria-label="No Lesson: activate to sort column ascending" style="width: 138.75px;">No Lesson</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr class="odd">
-                      <td class="sorting_1">P5 Science Olympiad OS503</td>
-                      <td>Sunday</td>
-                      <td>11:00am - 12:45pm</td>
-                      <td>18</td>
-                      <td>24-Jun-24</td>
-                      <td>3-Nov-24</td>
-                      <td>$1,440.00</td>
-                      <td>Redhill </td>
-                      <td>1-Sep-24</td>
-                    </tr>
-                    <tr class="even">
-                      <td class="sorting_1">P5 Science Olympiad OS504</td>
-                      <td>Saturday</td>
-                      <td>3:30pm - 5:15pm</td>
-                      <td>18</td>
-                      <td>29-Jun-24</td>
-                      <td>2-Nov-24</td>
-                      <td>$1,440.00</td>
-                      <td>Kovan </td>
-                      <td>7-Sep-24</td>
-                    </tr>
-                    <tr class="odd">
-                      <td class="sorting_1">P5 Science Olympiad OS506</td>
-                      <td>Friday</td>
-                      <td>7:00pm - 8:45pm</td>
-                      <td>18</td>
-                      <td>28-Jun-24</td>
-                      <td>1-Nov-24</td>
-                      <td>$1,440.00</td>
-                      <td>Kovan </td>
-                      <td>Sep-24</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <?php if (isset($courses) && !empty($courses)) : ?>
+                  <table id="dataTable" class="table dataTable no-footer" aria-describedby="dataTable_info">
+                    <thead>
+                      <tr>
+                        <th class="sorting <?php if ($_GET['orderby'] == 'title' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="title">Course</th>
+                        <th class="sorting">Day</th>
+                        <th class="sorting">Time</th>
+                        <th class="sorting">Sessions</th>
+                        <th class="sorting">From</th>
+                        <th class="sorting">To</th>
+                        <th class="sorting">Fees</th>
+                        <th class="sorting">Venue</th>
+                        <th class="sorting">No Lesson</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      while ($courses->have_posts()) :  $courses->the_post(); ?>
+                        <?php
+
+                        $id_course = get_the_id();
+                        $price = get_post_meta($id_course, '_lp_regular_price', true);
+                        ?>
+                        <tr class="odd">
+                          <td class="sorting_1"><?php echo get_the_title(); ?></td>
+                          <td>Sunday</td>
+                          <td>11:00am - 12:45pm</td>
+                          <td>18</td>
+                          <td>24-Jun-24</td>
+                          <td>3-Nov-24</td>
+                          <td><?php echo $price; ?></td>
+                          <td>Redhill </td>
+                          <td>1-Sep-24</td>
+                        </tr>
+                      <?php endwhile; ?>
+                    </tbody>
+                  </table>
+                <?php endif; ?>
               </div>
             </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-5">
-                <div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">Showing 51 to 60 of 100 entries</div>
-              </div>
-              <div class="col-sm-12 col-md-7">
-                <div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-                  <ul class="pagination">
-                    <li class="paginate_button page-item previous" id="dataTable_previous"><a href="#" aria-controls="dataTable" role="link" data-dt-idx="previous" tabindex="0" class="page-link">Previous</a></li>
-                    <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" role="link" data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
-                    <li class="paginate_button page-item disabled" id="dataTable_ellipsis"><a aria-controls="dataTable" aria-disabled="true" role="link" data-dt-idx="ellipsis" tabindex="-1" class="page-link">…</a></li>
-                    <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li>
-                    <li class="paginate_button page-item active"><a href="#" aria-controls="dataTable" role="link" aria-current="page" data-dt-idx="5" tabindex="0" class="page-link">6</a></li>
-                    <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" role="link" data-dt-idx="6" tabindex="0" class="page-link">7</a></li>
-                    <li class="paginate_button page-item disabled" id="dataTable_ellipsis"><a aria-controls="dataTable" aria-disabled="true" role="link" data-dt-idx="ellipsis" tabindex="-1" class="page-link">…</a></li>
-                    <li class="paginate_button page-item "><a href="#" aria-controls="dataTable" role="link" data-dt-idx="9" tabindex="0" class="page-link">10</a></li>
-                    <li class="paginate_button page-item next" id="dataTable_next"><a href="#" aria-controls="dataTable" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+            <?php pagination_post_author($max_num_pages, $count, $post_per_page); ?>
+
           </div>
         </div>
       </div>
     </div>
+  </div>
 
 
   </div>

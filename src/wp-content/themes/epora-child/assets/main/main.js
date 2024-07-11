@@ -1,0 +1,1 @@
+"use strict";function sortDataTable(){$("body").on("click ","th.sorting",function(t){t.preventDefault();var a,t=$(this).attr("data-col"),o=(a=$(this).hasClass("sorting_asc")?"desc":"asc",new URLSearchParams(window.location.search));o.set("orderby",t),o.set("order",a),window.location.search=o})}($=jQuery)(document).ready(function(){sortDataTable()});
