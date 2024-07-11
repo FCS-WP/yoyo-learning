@@ -1,4 +1,5 @@
 <?php
+
 add_shortcode('course_table', 'course_table_callback');
 
 
@@ -17,6 +18,10 @@ function course_table_callback()
   $max_num_pages = $courses->max_num_pages;
 
   $count = $courses->found_posts;
+  $yeararr = get_taxonomy_terms_via_db('year');
+  $levelarr = get_taxonomy_terms_via_db('level');
+  $subjectarr = get_taxonomy_terms_via_db('subject');
+  
 ?>
   <div class="fees-container">
     <div class="row gx-5">
@@ -25,52 +30,18 @@ function course_table_callback()
           <div class="fees-filter aos-init aos-animate" data-aos="fade-up">
             <h4>Categories</h4>
             <div class="form-group">
-              <label class="control-label">Location</label>
+              <label class="control-label">Year</label>
               <div class="NiceSelect">
                 <select name="location" id="location" style="display: none;">
-                  <option value="">
-                    Please Select </option>
-                  <option value="39">Kovan</option>
-                  <option value="37">Redhill</option>
-                  <option value="71">Serangoon</option>
-                  <option value="38">Zoom Online</option>
+                  <?php foreach ($yeararr as $obj): ?>
+                    <option value="<?php echo htmlspecialchars($obj->name); ?>"><?php echo htmlspecialchars($obj->name); ?></option>
+                  <?php endforeach; ?>
                 </select>
-                <div class="nice-select" tabindex="0"><span class="current">Serangoon</span>
+                <div class="nice-select" tabindex="0"><span class="current">Please Select</span>
                   <ul class="list">
-                    <li data-value="" class="option">
-                      Please Select </li>
-                    <li data-value="39" class="option">Kovan</li>
-                    <li data-value="37" class="option">Redhill</li>
-                    <li data-value="71" class="option selected focus">Serangoon</li>
-                    <li data-value="38" class="option">Zoom Online</li>
-                  </ul>
-                </div>
-
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Semester</label>
-              <div class="NiceSelect">
-                <select name="semester" id="semester" style="display: none;">
-                  <option value="">
-                    Please Select </option>
-                  <option value="79">Semester 1</option>
-                  <option value="80">March Holiday</option>
-                  <option value="81">Mid Year Holiday</option>
-                  <option value="82">Semester 2</option>
-                  <option value="83">September Holiday</option>
-                  <option value="84">Year End Holiday</option>
-                </select>
-                <div class="nice-select" tabindex="0"><span class="current">Semester 1</span>
-                  <ul class="list">
-                    <li data-value="" class="option">
-                      Please Select </li>
-                    <li data-value="79" class="option selected">Semester 1</li>
-                    <li data-value="80" class="option">March Holiday</li>
-                    <li data-value="81" class="option">Mid Year Holiday</li>
-                    <li data-value="82" class="option">Semester 2</li>
-                    <li data-value="83" class="option">September Holiday</li>
-                    <li data-value="84" class="option">Year End Holiday</li>
+                    <?php foreach ($yeararr as $obj): ?>
+                      <li data-value="<?php echo htmlspecialchars($obj->name); ?>" class="option"><?php echo htmlspecialchars($obj->name); ?></li>
+                    <?php endforeach; ?>
                   </ul>
                 </div>
 
@@ -79,64 +50,35 @@ function course_table_callback()
             <div class="form-group">
               <label class="control-label">Level</label>
               <div class="NiceSelect">
+                <select name="semester" id="semester" style="display: none;">
+                  <?php foreach ($levelarr as $obj): ?>
+                    <option value="<?php echo htmlspecialchars($obj->name); ?>"><?php echo htmlspecialchars($obj->name); ?></option>
+                  <?php endforeach; ?>
+                </select>
+                <div class="nice-select" tabindex="0"><span class="current">Please Select</span>
+                  <ul class="list">
+                    <?php foreach ($levelarr as $obj): ?>
+                      <li data-value="<?php echo htmlspecialchars($obj->name); ?>" class="option"><?php echo htmlspecialchars($obj->name); ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label">Subject</label>
+              <div class="NiceSelect">
                 <select name="level" id="level" style="display: none;">
-                  <option value="">
-                    Please Select </option>
-                  <option value="33">Primary 1</option>
-                  <option value="34">Primary 2</option>
-                  <option value="61">Primary 3</option>
-                  <option value="62">Primary 4</option>
-                  <option value="63">Primary 5</option>
-                  <option value="64">Primary 6</option>
-                  <option value="35">Secondary 1</option>
-                  <option value="65">Secondary 2</option>
-                  <option value="66">Secondary 3</option>
-                  <option value="67">Secondary 4</option>
-                  <option value="72">SMO Open</option>
-                  <option value="36">Junior College 1</option>
-                  <option value="68">Junior College 2</option>
+                  <?php foreach ($subjectarr as $obj): ?>
+                    <option value="<?php echo htmlspecialchars($obj->name); ?>"><?php echo htmlspecialchars($obj->name); ?></option>
+                  <?php endforeach; ?>
                 </select>
                 <div class="nice-select" tabindex="0"><span class="current">
                     Please Select </span>
                   <ul class="list">
-                    <li data-value="" class="option selected">
-                      Please Select </li>
-                    <li data-value="33" class="option">Primary 1</li>
-                    <li data-value="34" class="option">Primary 2</li>
-                    <li data-value="61" class="option">Primary 3</li>
-                    <li data-value="62" class="option">Primary 4</li>
-                    <li data-value="63" class="option">Primary 5</li>
-                    <li data-value="64" class="option">Primary 6</li>
-                    <li data-value="35" class="option">Secondary 1</li>
-                    <li data-value="65" class="option">Secondary 2</li>
-                    <li data-value="66" class="option">Secondary 3</li>
-                    <li data-value="67" class="option">Secondary 4</li>
-                    <li data-value="72" class="option">SMO Open</li>
-                    <li data-value="36" class="option">Junior College 1</li>
-                    <li data-value="68" class="option">Junior College 2</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="control-label">Subject </label>
-              <div class="NiceSelect">
-                <select name="subject" id="subject" style="display: none;">
-                  <option value="">
-                    Please Select </option>
-                  <option value="55">Mathematics</option>
-                  <option value="56">Science</option>
-                  <option value="57">English</option>
-                  <option value="107">Math</option>
-                </select>
-                <div class="nice-select" tabindex="0"><span class="current">Science</span>
-                  <ul class="list">
-                    <li data-value="" class="option">
-                      Please Select </li>
-                    <li data-value="55" class="option">Mathematics</li>
-                    <li data-value="56" class="option selected">Science</li>
-                    <li data-value="57" class="option">English</li>
-                    <li data-value="107" class="option">Math</li>
+                    <?php foreach ($subjectarr as $obj): ?>
+                      <li data-value="<?php echo htmlspecialchars($obj->name); ?>" class="option"><?php echo htmlspecialchars($obj->name); ?></li>
+                    <?php endforeach; ?>
                   </ul>
                 </div>
               </div>

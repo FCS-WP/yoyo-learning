@@ -116,3 +116,23 @@ function pagination_post_author($max_num_pages = 0, $count, $post_per_page)
 
 <?php
 }
+
+
+//Get taxonomy course by DB
+function get_taxonomy_terms_via_db($att) {
+  global $wpdb;
+  $taxonomy = $att;
+
+  $query = $wpdb->prepare("
+          SELECT t.name
+          FROM {$wpdb->terms} AS t
+          INNER JOIN {$wpdb->term_taxonomy} AS tt ON t.term_id = tt.term_id
+          WHERE tt.taxonomy = %s
+      ", $taxonomy);
+
+    $terms = $wpdb->get_results($query);
+
+    if (!empty($terms)) {
+      return $terms;
+  }
+}
