@@ -32,10 +32,10 @@ function register_custom_taxonomies() {
     'show_ui'           => true,
     'show_admin_column' => true,
     'query_var'         => true,
-    'rewrite'           => array('slug' => 'year'),
+    'rewrite'           => array('slug' => 'lp_year'),
   );
 
-  register_taxonomy('year', 'lp_course', $args);
+  register_taxonomy('lp_year', 'lp_course', $args);
 
   // Taxonomy Level
   $labels = array(
@@ -58,10 +58,10 @@ function register_custom_taxonomies() {
     'show_ui'           => true,
     'show_admin_column' => true,
     'query_var'         => true,
-    'rewrite'           => array('slug' => 'level'),
+    'rewrite'           => array('slug' => 'lp_level'),
   );
 
-  register_taxonomy('level', 'lp_course', $args);
+  register_taxonomy('lp_level', 'lp_course', $args);
 
   // Taxonomy Subject
   $labels = array(
@@ -84,10 +84,18 @@ function register_custom_taxonomies() {
     'show_ui'           => true,
     'show_admin_column' => true,
     'query_var'         => true,
-    'rewrite'           => array('slug' => 'subject'),
+    'rewrite'           => array('slug' => 'lp_subject'),
   );
 
-  register_taxonomy('subject', 'lp_course', $args);
+  register_taxonomy('lp_subject', 'lp_course', $args);
 }
 
 add_action('init', 'register_custom_taxonomies');
+
+add_action('admin_menu', 'my_admin_menu');
+function my_admin_menu()
+{
+  add_submenu_page('learn_press', 'Year', 'Year', 'manage_options', 'edit-tags.php?taxonomy=lp_year');
+  add_submenu_page('learn_press', 'Level', 'Level', 'manage_options', 'edit-tags.php?taxonomy=lp_level');
+  add_submenu_page('learn_press', 'Subject', 'Subject', 'manage_options', 'edit-tags.php?taxonomy=lp_subject');
+}
