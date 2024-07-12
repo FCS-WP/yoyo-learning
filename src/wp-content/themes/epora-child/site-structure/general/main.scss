@@ -1,5 +1,8 @@
 @import "_mixins";
 @import "_fonts";
+@import "_pagination";
+@import "_fees";
+
 .footer-widget ul {
   display: flex;
   gap: 20px;
