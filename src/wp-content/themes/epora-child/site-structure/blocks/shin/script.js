@@ -9,7 +9,7 @@ function sortDataTable() {
       var order = "asc";
     }
     const urlParams = new URLSearchParams(window.location.search);
-
+  
     urlParams.set("orderby", sortCol);
     urlParams.set("order", order);
 

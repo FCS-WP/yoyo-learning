@@ -138,3 +138,14 @@ function get_taxonomy_terms_via_db($att) {
     return $terms;
   }
 }
+
+//Display name taxonomy by prdocut posttype lp_course
+function display_taxonomy_by_post_id($post_id, $taxonomy) {
+  $terms = get_the_terms($post_id, $taxonomy);
+  if (!empty($terms)) {
+    $term = $terms[0];
+    echo '<span>' . esc_html($term->name) . '</span>';
+  } else {
+    echo 'N/A';
+  }
+}

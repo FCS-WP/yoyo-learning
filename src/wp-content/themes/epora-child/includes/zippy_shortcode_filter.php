@@ -11,8 +11,11 @@ function shortcode_filter(){
     $current_url = substr($current_url, 0, -1);
     $lp_year = isset($_GET['lp_year']) ? $_GET['lp_year'] : '';
     $lp_level = isset($_GET['lp_level']) ? $_GET['lp_level'] : '';
-    $lp_subject = isset($_GET['lp_subject']) ? $_GET['lp_subject'] : '';;
-    
+    $lp_subject = isset($_GET['lp_subject']) ? $_GET['lp_subject'] : '';
+    $lp_year_name = str_replace('-', ' ', $lp_year);
+    $lp_level_name = str_replace('-', ' ', $lp_level);
+    $lp_subject_name = str_replace('-', ' ', $lp_subject);
+
 ?>
     <form action=" <?php echo $current_url ?> " method="get" id="filter">
         <div class="fees-filter aos-init aos-animate" data-aos="fade-up">
@@ -27,7 +30,7 @@ function shortcode_filter(){
                 <?php endforeach; ?>
               </select>
               <?php if(!empty($yeararr)) {?>
-              <div class="nice-select" id="select-year" tabindex="0"><span class="current"><?php if(!empty($lp_year)){echo $lp_year;}else{echo 'Please Select';}?></span>
+              <div class="nice-select" id="select-year" tabindex="0"><span class="current"><?php if(!empty($lp_year)){echo ucwords($lp_year_name);}else{echo 'Please Select';}?></span>
                 <ul class="list">
                     <?php foreach ($yeararr as $obj): ?>
                       <li data-value="<?php echo htmlspecialchars($obj->slug); ?>" class="option"><?php echo htmlspecialchars($obj->name); ?></li>
@@ -49,7 +52,7 @@ function shortcode_filter(){
                 <?php endforeach; ?>
               </select>
               <?php if(!empty($levelarr)) {?>
-              <div class="nice-select" tabindex="0"><span class="current"><?php if(!empty($lp_level)){echo $lp_level;}else{echo 'Please Select';}?></span>
+              <div class="nice-select" tabindex="0"><span class="current"><?php if(!empty($lp_level)){echo ucwords($lp_level_name);}else{echo 'Please Select';}?></span>
                 <ul class="list">
                   <?php foreach ($levelarr as $obj): ?>
                     <li data-value="<?php echo htmlspecialchars($obj->slug); ?>" class="option"><?php echo htmlspecialchars($obj->name); ?></li>
@@ -71,7 +74,7 @@ function shortcode_filter(){
                 <?php endforeach; ?>
               </select>
               <?php if(!empty($subjectarr)) {?>
-              <div class="nice-select" tabindex="0"><span class="current"><?php if(!empty($lp_subject)){echo $lp_subject;}else{echo 'Please Select';}?></span>
+              <div class="nice-select" tabindex="0"><span class="current"><?php if(!empty($lp_subject)){echo ucwords($lp_subject_name);}else{echo 'Please Select';}?></span>
                 <ul class="list">
                   <?php foreach ($subjectarr as $obj): ?>
                     <li data-value="<?php echo htmlspecialchars($obj->slug); ?>" class="option"><?php echo htmlspecialchars($obj->name); ?></li>

@@ -2,12 +2,13 @@
 add_shortcode('data_course_table', 'data_course_table_callback');
 
 function data_course_table_callback(){
-    $post_per_page = 3;
+    $post_per_page = 12;
     $lp_year = isset($_GET['lp_year']) ? $_GET['lp_year'] : '';
     $lp_level = isset($_GET['lp_level']) ? $_GET['lp_level'] : '';
     $lp_subject = isset($_GET['lp_subject']) ? $_GET['lp_subject'] : '';
     $array_filter = array(
         'relation' => 'AND',
+        
     );
 
     if(!empty($lp_year)){
@@ -41,6 +42,7 @@ function data_course_table_callback(){
         'tax_query'     => $array_filter,
         
     );
+
     $courses = new WP_Query($args);
 
     $max_num_pages = $courses->max_num_pages;
@@ -73,9 +75,9 @@ function data_course_table_callback(){
                         <th class="sorting <?php if ($_GET['orderby'] == 'title' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="title">Course</th>
                         <th class="sorting">Day</th>
                         <th class="sorting">Time</th>
-                        <th class="sorting">Sessions</th>
-                        <th class="sorting">From</th>
-                        <th class="sorting">To</th>
+                        <th class="sorting <?php if ($_GET['orderby'] == 'lp_year' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_year">Year</th>
+                        <th class="sorting <?php if ($_GET['orderby'] == 'lp_level' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_level">Level</th>
+                        <th class="sorting <?php if ($_GET['orderby'] == 'lp_subject' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_subject">Subject</th>
                         <th class="sorting">Fees</th>
                         <th class="sorting">Venue</th>
                         <th class="sorting">No Lesson</th>
@@ -93,9 +95,9 @@ function data_course_table_callback(){
                           <td class="sorting_1"><?php echo get_the_title(); ?></td>
                           <td>Sunday</td>
                           <td>11:00am - 12:45pm</td>
-                          <td>18</td>
-                          <td>24-Jun-24</td>
-                          <td>3-Nov-24</td>
+                          <td style="text-align: center"><?php echo display_taxonomy_by_post_id($id_course, 'lp_year') ?></td>
+                          <td style="text-align: center"><?php echo display_taxonomy_by_post_id($id_course, 'lp_level') ?></td>
+                          <td style="text-align: center"><?php echo display_taxonomy_by_post_id($id_course, 'lp_subject') ?></td>
                           <td><?php echo $price; ?></td>
                           <td>Redhill </td>
                           <td>1-Sep-24</td>
