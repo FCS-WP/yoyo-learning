@@ -15,7 +15,25 @@ function shortcode_filter(){
     $lp_year_name = str_replace('-', ' ', $lp_year);
     $lp_level_name = str_replace('-', ' ', $lp_level);
     $lp_subject_name = str_replace('-', ' ', $lp_subject);
-
+    $selectAllYear = "all";
+    $selectAllLevel = "all";
+    $selectAllSubject = "all";
+    if(!empty($lp_year)){
+      if($lp_year != "all"){
+        $selectAllYear = $lp_year;
+      }
+    }
+    if(!empty($lp_level)){
+      if($lp_level != "all"){
+        $selectAllLevel = $lp_level;
+      }
+    }
+    if(!empty($lp_subject)){
+      if($lp_subject != "all"){
+        $selectAllSubject = $lp_subject;
+      }
+    }
+    
 ?>
     <form action=" <?php echo $current_url ?> " method="get" id="filter">
         <div class="fees-filter aos-init aos-animate" data-aos="fade-up">
@@ -24,8 +42,8 @@ function shortcode_filter(){
             <label class="control-label">Year</label>
             <div class="NiceSelect">
               <select name="lp_year" id="lp_year" style="display: none;">
+                <option selected value="<?php echo $selectAllYear ?>"></option>
                 <?php foreach ($yeararr as $obj): ?>
-                  <option selected value="<?php echo $lp_year ?>"></option>
                   <option value="<?php echo htmlspecialchars($obj->slug); ?>"><?php echo htmlspecialchars($obj->name); ?></option>
                 <?php endforeach; ?>
               </select>
@@ -46,8 +64,8 @@ function shortcode_filter(){
             <label class="control-label">Level</label>
             <div class="NiceSelect">
               <select name="lp_level" id="lp_level" style="display: none;">
+                <option selected value="<?php echo $selectAllLevel ?>"></option>
                 <?php foreach ($levelarr as $obj): ?>
-                    <option selected value="<?php echo $lp_level ?>"></option>
                   <option value="<?php echo htmlspecialchars($obj->slug); ?>"><?php echo htmlspecialchars($obj->name); ?></option>
                 <?php endforeach; ?>
               </select>
@@ -68,8 +86,8 @@ function shortcode_filter(){
             <label class="control-label">Subject</label>
             <div class="NiceSelect">
               <select name="lp_subject" id="lp_subject" style="display: none;">
-                <?php foreach ($subjectarr as $obj): ?>
-                    <option selected value="<?php echo $lp_subject ?>"></option>
+              <option selected value="<?php echo $selectAllSubject ?>"></option>  
+              <?php foreach ($subjectarr as $obj): ?>
                   <option value="<?php echo htmlspecialchars($obj->slug); ?>"><?php echo htmlspecialchars($obj->name); ?></option>
                 <?php endforeach; ?>
               </select>
@@ -92,5 +110,5 @@ function shortcode_filter(){
           <div class="rest-password"><a href=" <?php echo $current_url ?>" id="reset">RESET FILTER</a></div>
         </div>
     </form>
-
+     
 <?php } ?>

@@ -1,0 +1,150 @@
+.page-body{
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, .97);
+    border-radius: 20px;
+    box-shadow: 0 13px 22px 2px #b1b1b159;
+  
+    .filter{
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      width: -moz-fit-content;
+      width: fit-content;
+      margin: 0 auto 36px;
+      background: #f3f6fb;
+      border-radius: 24px;
+  
+      form {
+        .fees-filter{
+          display: flex;
+          align-items: center;
+          background-color: transparent !important;
+          margin-bottom: 0px;
+          padding: 10px;
+          width: 500px;
+          justify-content: space-between;
+          .rest-password{
+            padding-top: 0px;
+            a{
+              text-transform: capitalize !important;
+            }
+            
+          }
+          .form-group{
+            margin-bottom: 0px;
+            .nice-select{
+              font-size: 14px;
+              padding: 0px !important;
+              height: 35px !important;
+              width: 90px;
+              display: flex;
+              justify-content: center;
+              background: transparent;
+              border: none;
+              .current{
+                display: inline;
+                margin-right: 10px;
+              }
+              .list{
+                border: 0;
+                border-radius: 4px;
+                width: 100%;
+                padding-bottom: 0px;
+                box-shadow: 0 2px 4px -1px #0003, 0 4px 5px 0 #00000024, 0 1px 10px 0 #0000001f;
+                li{
+                  font-size: 14px;
+                  padding: 10px !important;
+                }
+              }
+            }
+            
+            .nice-select:after{
+              position: relative;
+              top: -1px;
+              right: 0;
+              
+            }
+            .btn-primary{
+              width: 90px;
+              padding: 5px;
+              color: #fff;
+              background: #f0623a;
+              border: none;
+              border-radius: 20px;
+            }
+          }
+        }
+      }
+  
+      .mat-button.btn-search {
+        width: 80px;
+        padding: 0 4px;
+        color: #fff;
+        background: #f0623a;
+        border-radius: 20px;
+        margin-right: 20px;
+      }
+    }
+  }
+  
+  .grid-course{
+    .paper-item{
+      position: relative;
+      padding: 16px;
+      overflow: hidden;
+  
+      .paper-progress{
+        padding: 12px 24px;
+        overflow: hidden;
+        white-space: nowrap;
+        background: #EDFCDB;
+        border-radius: 0 0 14px 14px;
+        p{
+          font-size: 14px;
+          color: black;
+          font-family: 'Roboto';
+          margin-bottom: 5px;
+        }
+        .progress-bar{
+          height: 8px;
+          background: #C9E9B2;
+          border-radius: 4px;
+        }
+      }
+      .box-paper{
+        box-shadow: 0 13px 22px 2px #b1b1b159;
+        display: inline-block;
+        background: #FFFFFF;
+        border-radius: 14px;
+  
+        .paper-header{
+          padding: 16px 16px 0;
+  
+          .title{
+            height: 42px;
+            overflow: hidden;
+            color: #333;
+            font-weight: 400;
+            font-size: 14px;
+            text-align: center;
+            line-height: 1.5;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+          }
+  
+          .cover{
+            margin: 15px 0;
+          }
+        }
+      }
+    }
+  }
+  .disable-sorting:after{
+    display: none !important;
+  }
+  .disable-sorting::before{
+    display: none !important;
+  }
+  

@@ -12,25 +12,31 @@ function data_course_table_callback(){
     );
 
     if(!empty($lp_year)){
+      if($lp_year != "all"){
         $array_filter[] = array(
-            'taxonomy' => 'lp_year', 
-            'field'    => 'slug',
-            'terms'    =>  $lp_year,
+          'taxonomy' => 'lp_year', 
+          'field'    => 'slug',
+          'terms'    =>  $lp_year,
         );
+      }
     }
     if(!empty($lp_level)){
+      if($lp_level != "all"){
         $array_filter[] = array(
             'taxonomy' => 'lp_level', 
             'field'    => 'slug',
             'terms'    =>  $lp_level,
         );
+      }
     }
     if(!empty($lp_subject)){
+      if($lp_subject != "all"){
         $array_filter[] = array(
             'taxonomy' => 'lp_subject', 
             'field'    => 'slug',
             'terms'    =>  $lp_subject,
         );
+      }
     }
     
     $args = array(
@@ -72,15 +78,15 @@ function data_course_table_callback(){
                   <table id="dataTable" class="table dataTable no-footer" aria-describedby="dataTable_info">
                     <thead>
                       <tr>
-                        <th class="sorting <?php if ($_GET['orderby'] == 'title' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="title">Course</th>
-                        <th class="sorting">Day</th>
-                        <th class="sorting">Time</th>
-                        <th class="sorting <?php if ($_GET['orderby'] == 'lp_year' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_year">Year</th>
-                        <th class="sorting <?php if ($_GET['orderby'] == 'lp_level' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_level">Level</th>
-                        <th class="sorting <?php if ($_GET['orderby'] == 'lp_subject' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_subject">Subject</th>
-                        <th class="sorting">Fees</th>
-                        <th class="sorting">Venue</th>
-                        <th class="sorting">No Lesson</th>
+                        <th class="sorting disable-sorting <?php if ($_GET['orderby'] == 'title' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="title">Course</th>
+                        <th class="sorting disable-sorting">Day</th>
+                        <th class="sorting disable-sorting">Time</th>
+                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_year' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_year">Year</th>
+                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_level' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_level">Level</th>
+                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_subject' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_subject">Subject</th>
+                        <th class="sorting disable-sorting">Fees</th>
+                        <th class="sorting disable-sorting">Venue</th>
+                        <th class="sorting disable-sorting">No Lesson</th>
                       </tr>
                     </thead>
                     <tbody>
