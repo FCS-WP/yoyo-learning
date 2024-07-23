@@ -114,6 +114,7 @@ table.dataTable {
   color: #2c82d5;
   font-weight: 700;
   padding: 0px 15px 45px;
+  text-align: left;
 }
 
 .fees-dataTable thead tr th:first-child {
@@ -143,8 +144,7 @@ table.dataTable {
 }
 
 .fees-dataTable tbody tr td:first-child {
-  max-width: 150px;
-  padding: 22px 45px;
+  text-align: left;
 }
 .fees-dataTable tbody,
 .fees-dataTable table {
@@ -153,6 +153,7 @@ table.dataTable {
 
 .fees-dataTable tbody tr:last-child td {
   border-color: transparent;
+  white-space: nowrap;
 }
 
 .fees-dataTable tbody tr:first-child td:first-child {
@@ -333,6 +334,7 @@ table.dataTable thead > tr > th.sorting {
   padding: 0 20px 20px;
   vertical-align: top;
   border: none;
+  white-space: nowrap;
 }
 
 table.dataTable thead > tr > th.sorting:before,

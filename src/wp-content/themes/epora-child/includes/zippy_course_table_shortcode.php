@@ -78,15 +78,14 @@ function data_course_table_callback(){
                   <table id="dataTable" class="table dataTable no-footer" aria-describedby="dataTable_info">
                     <thead>
                       <tr>
-                        <th class="sorting disable-sorting <?php if ($_GET['orderby'] == 'title' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="title">Course</th>
+                        <th class="sorting sorting <?php if ($_GET['orderby'] == 'title' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="title">Course</th>
+                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_level' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_level">Grade</th>  
+                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_subject' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_subject">Subject</th>
                         <th class="sorting disable-sorting">Day</th>
                         <th class="sorting disable-sorting">Time</th>
                         <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_year' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_year">Year</th>
-                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_level' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_level">Level</th>
-                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_subject' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_subject">Subject</th>
-                        <th class="sorting disable-sorting">Fees</th>
-                        <th class="sorting disable-sorting">Venue</th>
-                        <th class="sorting disable-sorting">No Lesson</th>
+                        <th class="sorting disable-sorting">Maximuni No of  students</th>
+                        <th class="sorting disable-sorting">Fees</th>            
                       </tr>
                     </thead>
                     <tbody>
@@ -96,17 +95,20 @@ function data_course_table_callback(){
 
                         $id_course = get_the_id();
                         $price = get_post_meta($id_course, '_lp_regular_price', true);
+                        $max_student = get_post_meta($id_course, '_lp_max_students', true);
+                        $start_time_course = get_post_meta($id_course, 'lp_time_start_field_key', true);
+                        $end_time_course = get_post_meta($id_course, 'lp_time_end_field_key', true);
+                        $day_course = get_post_meta($id_course, 'lp_day_course_field_key', true);
                         ?>
                         <tr class="odd">
                           <td class="sorting_1"><?php echo get_the_title(); ?></td>
-                          <td>Sunday</td>
-                          <td>11:00am - 12:45pm</td>
-                          <td style="text-align: center"><?php echo display_taxonomy_by_post_id($id_course, 'lp_year') ?></td>
-                          <td style="text-align: center"><?php echo display_taxonomy_by_post_id($id_course, 'lp_level') ?></td>
-                          <td style="text-align: center"><?php echo display_taxonomy_by_post_id($id_course, 'lp_subject') ?></td>
-                          <td><?php echo $price; ?></td>
-                          <td>Redhill </td>
-                          <td>1-Sep-24</td>
+                          <td style="text-align: center;white-space: nowrap;"><?php echo display_taxonomy_by_post_id($id_course, 'lp_level') ?></td>
+                          <td style="text-align: center;white-space: nowrap;"><?php echo display_taxonomy_by_post_id($id_course, 'lp_subject') ?></td>
+                          <td style="text-align: center;white-space: nowrap;"><?php echo $day_course  ?></td>
+                          <td style="text-align: center;white-space: nowrap;"><?php echo $start_time_course . ' - ' . $end_time_course ?></td>
+                          <td style="text-align: center;white-space: nowrap;"><?php echo display_taxonomy_by_post_id($id_course, 'lp_year') ?></td>
+                          <td style="text-align: center;white-space: nowrap;"><?php echo $max_student ?></td>
+                          <td style="text-align: center;white-space: nowrap;"><?php echo $price; ?></td>
                         </tr>
                       <?php endwhile; ?>
                     </tbody>
