@@ -4,15 +4,15 @@ add_shortcode('online_page_section', 'online_paper_callback');
 
 function online_paper_callback(){
     $yeararr = get_taxonomy_terms_via_db('lp_year');
-    $levelarr = get_taxonomy_terms_via_db('lp_level');
+    $levelarr = get_taxonomy_terms_via_db('lp_grade');
     $subjectarr = get_taxonomy_terms_via_db('lp_subject'); 
     $current_url = get_permalink();
     $current_url = substr($current_url, 0, -1);
     $lp_year = isset($_GET['lp_year']) ? $_GET['lp_year'] : '';
-    $lp_level = isset($_GET['lp_level']) ? $_GET['lp_level'] : '';
+    $lp_grade = isset($_GET['lp_grade']) ? $_GET['lp_grade'] : '';
     $lp_subject = isset($_GET['lp_subject']) ? $_GET['lp_subject'] : '';
     $lp_year_name = str_replace('-', ' ', $lp_year);
-    $lp_level_name = str_replace('-', ' ', $lp_level);
+    $lp_grade_name = str_replace('-', ' ', $lp_grade);
     $lp_subject_name = str_replace('-', ' ', $lp_subject);
     $selectAllYear = "all";
     $selectAllLevel = "all";
@@ -32,13 +32,13 @@ function online_paper_callback(){
           );
         }
       }
-      if(!empty($lp_level)){
-        if($lp_level != "all"){
-          $selectAllLevel = $lp_level;
+      if(!empty($lp_grade)){
+        if($lp_grade != "all"){
+          $selectAllLevel = $lp_grade;
           $array_filter[] = array(
-            'taxonomy' => 'lp_level', 
+            'taxonomy' => 'lp_grade', 
             'field'    => 'slug',
-            'terms'    =>  $lp_level,
+            'terms'    =>  $lp_grade,
         );
         }
       }
@@ -98,14 +98,14 @@ function online_paper_callback(){
             </div>
             <div class="form-group">
                 <div class="NiceSelect">
-                <select name="lp_level" id="lp_level" style="display: none;">
+                <select name="lp_grade" id="lp_grade" style="display: none;">
                     <option selected value="<?php echo $selectAllLevel ?>"></option>
                     <?php foreach ($levelarr as $obj): ?>
                     <option value="<?php echo htmlspecialchars($obj->slug); ?>"><?php echo htmlspecialchars($obj->name); ?></option>
                     <?php endforeach; ?>
                 </select>
                 <?php if(!empty($levelarr)) {?>
-                <div class="nice-select" tabindex="0"><span class="current"><?php if(!empty($lp_level)){echo ucwords($lp_level_name);}else{echo 'Level';}?></span>
+                <div class="nice-select" tabindex="0"><span class="current"><?php if(!empty($lp_grade)){echo ucwords($lp_grade_name);}else{echo 'Grade';}?></span>
                     <ul class="list">
                     <?php foreach ($levelarr as $obj): ?>
                         <li data-value="<?php echo htmlspecialchars($obj->slug); ?>" class="option"><?php echo htmlspecialchars($obj->name); ?></li>

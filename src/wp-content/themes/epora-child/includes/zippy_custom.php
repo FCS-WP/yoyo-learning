@@ -39,17 +39,17 @@ function register_custom_taxonomies() {
 
   // Taxonomy Level
   $labels = array(
-    'name'              => _x('Levels', 'taxonomy general name', 'textdomain'),
-    'singular_name'     => _x('Level', 'taxonomy singular name', 'textdomain'),
-    'search_items'      => __('Search Levels', 'textdomain'),
-    'all_items'         => __('All Levels', 'textdomain'),
-    'parent_item'       => __('Parent Level', 'textdomain'),
-    'parent_item_colon' => __('Parent Level:', 'textdomain'),
-    'edit_item'         => __('Edit Level', 'textdomain'),
-    'update_item'       => __('Update Level', 'textdomain'),
-    'add_new_item'      => __('Add New Level', 'textdomain'),
-    'new_item_name'     => __('New Level Name', 'textdomain'),
-    'menu_name'         => __('Level', 'textdomain'),
+    'name'              => _x('Grades', 'taxonomy general name', 'textdomain'),
+    'singular_name'     => _x('Grade', 'taxonomy singular name', 'textdomain'),
+    'search_items'      => __('Search Grades', 'textdomain'),
+    'all_items'         => __('All Grades', 'textdomain'),
+    'parent_item'       => __('Parent Grade', 'textdomain'),
+    'parent_item_colon' => __('Parent Grade:', 'textdomain'),
+    'edit_item'         => __('Edit Grade', 'textdomain'),
+    'update_item'       => __('Update Grade', 'textdomain'),
+    'add_new_item'      => __('Add New Grade', 'textdomain'),
+    'new_item_name'     => __('New Grade Name', 'textdomain'),
+    'menu_name'         => __('Grade', 'textdomain'),
   );
 
   $args = array(
@@ -58,10 +58,10 @@ function register_custom_taxonomies() {
     'show_ui'           => true,
     'show_admin_column' => true,
     'query_var'         => true,
-    'rewrite'           => array('slug' => 'lp_level'),
+    'rewrite'           => array('slug' => 'lp_grade'),
   );
 
-  register_taxonomy('lp_level', 'lp_course', $args);
+  register_taxonomy('lp_grade', 'lp_course', $args);
 
   // Taxonomy Subject
   $labels = array(
@@ -96,6 +96,6 @@ add_action('admin_menu', 'my_admin_menu');
 function my_admin_menu()
 {
   add_submenu_page('learn_press', 'Year', 'Year', 'manage_options', 'edit-tags.php?taxonomy=lp_year');
-  add_submenu_page('learn_press', 'Level', 'Level', 'manage_options', 'edit-tags.php?taxonomy=lp_level');
+  add_submenu_page('learn_press', 'Level', 'Grade', 'manage_options', 'edit-tags.php?taxonomy=lp_grade');
   add_submenu_page('learn_press', 'Subject', 'Subject', 'manage_options', 'edit-tags.php?taxonomy=lp_subject');
 }
