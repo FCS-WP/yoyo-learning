@@ -18,7 +18,7 @@ function show_input_time_course_meta_box($post) {
 
     $times = array();
     for ($i = 0; $i < 24; $i++) {
-        for ($j = 0; $j < 60; $j += 30) {
+        for ($j = 0; $j < 60; $j += 15) {
             $times[] = sprintf('%02d:%02d', $i, $j);
         }
     }
