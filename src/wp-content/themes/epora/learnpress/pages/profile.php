@@ -8,6 +8,7 @@
  */
 
 defined( 'ABSPATH' ) || exit();
+pr($profile);
 
 if ( ! isset( $profile ) ) {
 	return;

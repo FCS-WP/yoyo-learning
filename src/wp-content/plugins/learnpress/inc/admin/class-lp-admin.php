@@ -28,7 +28,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			add_action( 'delete_user', array( $this, 'delete_user_data' ) );
 			add_action( 'delete_user_form', array( $this, 'delete_user_form' ) );
 			add_action( 'wp_ajax_learn_press_rated', array( $this, 'rated' ) );
-			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+			add_action( 'all_admin_notices', array( $this, 'admin_notices' ), - 1 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'load_modal' ) );
 			add_filter( 'admin_body_class', array( $this, 'body_class' ) );
 			add_filter( 'manage_users_custom_column', array( $this, 'users_custom_column' ), 10, 3 );
@@ -82,9 +82,9 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 				LP_Modal_Search_Items::instance();
 			}
 
-			if ( in_array( get_post_type(), array( LP_ORDER_CPT ) ) ) {
+			/*if ( in_array( get_post_type(), array( LP_ORDER_CPT ) ) ) {
 				LP_Modal_Search_Users::instance();
-			}
+			}*/
 		}
 
 		/**
@@ -774,7 +774,7 @@ if ( ! class_exists( 'LP_Admin' ) ) {
 			include_once 'helpers/class-lp-outdated-template-helper.php';
 			include_once 'helpers/class-lp-plugins-helper.php';
 			include_once 'class-lp-modal-search-items.php';
-			include_once 'class-lp-modal-search-users.php';
+			//include_once 'class-lp-modal-search-users.php';
 			include_once 'class-lp-setup-wizard.php';
 			// include_once 'class-lp-updater.php';
 			include_once 'class-lp-install-sample-data.php';
