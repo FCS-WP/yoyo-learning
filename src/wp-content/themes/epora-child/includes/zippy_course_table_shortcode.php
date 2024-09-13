@@ -82,9 +82,9 @@ function data_course_table_callback(){
                         <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_grade' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_grade">Grade</th>  
                         <th class="sorting disable-sorting">Day</th>
                         <th class="sorting disable-sorting">Time</th>
-                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_year' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>" data-col="lp_year">Year</th>
-                        <th class="sorting disable-sorting">Maximuni No of  students</th>
-                        <th class="sorting disable-sorting">Fees</th>            
+                        <th class="sorting disable-sorting<?php if ($_GET['orderby'] == 'lp_year' && $_GET['order'] == 'asc') echo 'sorting_asc'; ?>"  data-col="lp_year">Year</th>
+                        <th class="sorting disable-sorting" style="text-align:center">Maximuni No of  students</th>
+                        <th class="sorting disable-sorting" style="text-align:center">Fees</th>            
                       </tr>
                     </thead>
                     <tbody>
@@ -101,13 +101,13 @@ function data_course_table_callback(){
                         $link_course = get_permalink($id_course);
                         ?>
                           <tr class="odd">
-                            <td style="white-space: nowrap;"><a href="<?php  echo $link_course?>"><?php echo display_taxonomy_by_post_id($id_course, 'lp_subject') ?></a></td>
-                            <td style="white-space: nowrap;"><a href="<?php  echo $link_course?>"><?php echo display_taxonomy_by_post_id($id_course, 'lp_grade') ?></a></td>
-                            <td style="white-space: nowrap;"><a href="<?php  echo $link_course?>"><?php echo $day_course  ?></a></td>
-                            <td style="white-space: nowrap;"><a href="<?php  echo $link_course?>"><?php echo $start_time_course . ' - ' . $end_time_course ?></a></td>
-                            <td style="white-space: nowrap;"><a href="<?php  echo $link_course?>"><?php echo display_taxonomy_by_post_id($id_course, 'lp_year') ?></a></td>
-                            <td style="white-space: nowrap;"><a href="<?php  echo $link_course?>"><?php echo $max_student ?></td></a>
-                            <td style="white-space: nowrap;"><a href="<?php  echo $link_course?>"><?php echo $price; ?></a></td>
+                            <td style="white-space: nowrap;"><?php echo display_taxonomy_by_post_id($id_course, 'lp_subject') ?></td>
+                            <td style="white-space: nowrap;"><?php echo display_taxonomy_by_post_id($id_course, 'lp_grade') ?></td>
+                            <td style="white-space: nowrap;"><?php echo $day_course  ?></td>
+                            <td style="white-space: nowrap;"><?php echo $start_time_course . ' - ' . $end_time_course ?></td>
+                            <td style="white-space: nowrap;"><?php echo display_taxonomy_by_post_id($id_course, 'lp_year') ?></td>
+                            <td style="white-space: nowrap;text-align:center"><?php echo $max_student ?></td>
+                            <td style="white-space: nowrap;text-align:center">$<?php if($price != NULL){echo $price;}else{echo '0';} ?></td>
                           </tr>
                       <?php endwhile; ?>
                     </tbody>
