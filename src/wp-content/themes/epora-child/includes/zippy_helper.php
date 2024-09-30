@@ -149,3 +149,44 @@ function display_taxonomy_by_post_id($post_id, $taxonomy) {
     echo 'N/A';
   }
 }
+
+//function get quiz by id course
+function get_quiz_by_id_course($input_id_course){
+  global $wpdb;
+
+  $course_ids = array($input_id_course); 
+
+  $placeholders = implode(',', array_fill(0, count($course_ids), '%d'));
+  
+  $query = $wpdb->prepare(
+     "SELECT section_id 
+     FROM fcs_data_learnpress_sections 
+     WHERE section_course_id IN ($placeholders)",
+     $course_ids
+  );
+
+  $section_ids = $wpdb->get_col($query);
+
+  foreach($section_ids as $key => $items){
+
+     $placeholders_section = implode(',', array_fill(0, count($section_ids), '%d'));;
+     $query = $wpdb->prepare(
+        "SELECT item_id 
+        FROM fcs_data_learnpress_section_items 
+        WHERE section_id IN ($placeholders_section)
+        AND item_type = %s",
+        array_merge($section_ids, array('lp_quiz'))
+
+     );
+
+     $item_ids = $wpdb->get_col($query);
+  }
+
+  foreach($item_ids as $key => $items){
+     $post = get_post($items);
+     $quiz_post[] = $post; 
+  }
+  
+  return $quiz_post;
+
+}

@@ -50,7 +50,7 @@ $yeararr = get_taxonomy_terms_via_db('lp_year');
         );
         }
       }
-    $post_per_page = -1;
+    $post_per_page = 12;
     
     $args = array(
         'post_type'     => 'lp_course',
@@ -90,6 +90,7 @@ if (isset($_GET['id-courses'])) {
             <div class="lp-material-skeleton">
 				<table class="course-material-table" style="display: table;">
 					<tbody id="material-file-list">
+                        <?php if(empty($results)){echo '<tr class="lp-material-item">This course currently has no resources. We will update in the future.</tr>';}else{?>
                         <?php foreach ($results as $file) { ?>
                         <tr class="lp-material-item">
                             <td class="lp-material-file-name"> <?php echo $file->file_name; ?></td>
@@ -100,7 +101,7 @@ if (isset($_GET['id-courses'])) {
                                 </a>
                             </td>
                         </tr>
-                        <?php } ?>
+                        <?php }}?>
                     </tbody>
                 </table>
             </div>
@@ -201,7 +202,7 @@ if (isset($_GET['id-courses'])) {
                         </div>
                     </div>
                     <div class="paper-progress">
-                        <p style="text-align: center;margin-bottom: 0px;font-weight:bolder">View</p>
+                        <p style="text-align: center;margin-bottom: 0px;font-weight:bolder">View Resources</p>
                     </div>
                     </a>
                 </div>
