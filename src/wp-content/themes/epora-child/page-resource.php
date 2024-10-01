@@ -8,9 +8,6 @@ get_header();
 			<div class="col-xl-12">
 				<div class="tp-page-content">
 					<?php
-
-
-
 						get_template_part( 'site-structure/pages/resource/index');
 					?>
 				</div>
