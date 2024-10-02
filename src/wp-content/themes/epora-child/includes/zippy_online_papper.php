@@ -66,9 +66,8 @@ function online_paper_callback(){
 
     $courses = new WP_Query($args);
 
-    $max_num_pages = $courses->max_num_pages;
-
-    $count = $courses->found_posts;
+    $max_num_pages = 1;
+    $count = 0;
 ?>
 <div class="page-body">
     <div class="row-items">
@@ -149,11 +148,14 @@ function online_paper_callback(){
     <?php if (isset($courses) && !empty($courses)) : ?>
         <?php while ($courses->have_posts()) : $courses->the_post(); 
             $id_course = get_the_ID();
-            $price = get_post_meta($id_course, '_lp_regular_price', true);
+            $quiz = get_quiz_by_id_course($id_course);
+            
+            if(isset($quiz)){ 
+                $count = $count + 1;
             ?>
             
             <div class="paper-item col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                <a href="<?php echo esc_url(get_permalink($id_course)); ?>" class="box-paper">
+                <a href="<?php echo esc_url(get_permalink($id_course)) . 'quizzes/' . $quiz[0]->post_name; ?>" class="box-paper">
                 <div class="paper-header">
                     <div class="title"> <?php echo get_the_title(); ?> </div>
                     <div class="cover">
@@ -170,11 +172,16 @@ function online_paper_callback(){
                 </div>
                 </a>
             </div>
+            <?php }?>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
     <?php endif; ?>
     </div>
-    <?php pagination_post_author($max_num_pages, $count, $post_per_page); ?>    
+    <?php 
+        $max_num_pages = $count/$post_per_page; 
+       
+    ?>
+    <?php pagination_post_author(ceil($max_num_pages), $count, $post_per_page); ?>    
 </div>
 
 <?php }
