@@ -51,67 +51,43 @@ $yeararr = get_taxonomy_terms_via_db('lp_year');
         }
       }
     $post_per_page = 12;
+
+    
+    $query = "
+    SELECT DISTINCT file.item_id 
+    FROM fcs_data_learnpress_files AS file 
+    LEFT JOIN fcs_data_learnpress_courses AS course 
+    ON course.ID = file.item_id
+    ";
+
+    $results = $wpdb->get_results($query);
+    
+    $item_ids = array();
+
+    foreach ($results as $item) {
+        $item_ids[] = intval($item->item_id);
+    }
     
     $args = array(
-        'post_type'     => 'lp_course',
-        'orderby'          => isset($_GET['orderby']) ? $_GET['orderby'] : 'title',
-        'order'            =>  isset($_GET['order']) ? $_GET['order'] : 'asc',
+        'post_type'      => 'lp_course',
+        'orderby'        => isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'title',
+        'order'          => isset($_GET['order']) ? sanitize_text_field($_GET['order']) : 'asc',
         'posts_per_page' => $post_per_page,
-        'paged' => (get_query_var('paged') ? get_query_var('paged') : 1),
-        'tax_query'     => $array_filter,
+        'paged'          => (get_query_var('paged') ? get_query_var('paged') : 1),
+        'post__in' => $item_ids,
+        'orderby' => 'post__in',
+        'tax_query'      => $array_filter,
         
     );
 
     $courses = new WP_Query($args);
-
     $max_num_pages = $courses->max_num_pages;
 
     $count = $courses->found_posts;
 
-
-if (isset($_GET['id-courses'])) {
-    $id_courses = $_GET['id-courses'];
-    $item_type = 'lp_course';
-        
-    $table_name = 'fcs_data_learnpress_files';
-    $query = $wpdb->prepare(
-        "SELECT file_name, file_type, file_path 
-         FROM $table_name 
-         WHERE item_id = %d AND item_type = %s",
-        $id_courses, $item_type
-    );
-
-    $results = $wpdb->get_results($query);
     
-    ?>
-    <h2 class="heading-resource">Resource <?php echo get_the_title($id_courses);?></h2>
-    <div class="course-tab-panel-materials course-tab-panel" id="tab-materials">
-		<div class="lp-list-material">			
-            <div class="lp-material-skeleton">
-				<table class="course-material-table" style="display: table;">
-					<tbody id="material-file-list">
-                        <?php if(empty($results)){echo '<tr class="lp-material-item">This course currently has no resources. We will update in the future.</tr>';}else{?>
-                        <?php foreach ($results as $file) { ?>
-                        <tr class="lp-material-item">
-                            <td class="lp-material-file-name"> <?php echo $file->file_name; ?></td>
-                            <td class="lp-material-file-type" style="text-align: center">Type <?php echo $file->file_type; ?></td>
-                            <td class="lp-material-file-link" style="text-align: center">
-                                <a href="/wp-content/uploads<?php echo $file->file_path; ?>" target="_blank" rel="">
-                                    Download
-                                </a>
-                            </td>
-                        </tr>
-                        <?php }}?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <?php
-
-} else {
-    ?>
-
+?>
+    
 <div class="page-body">
     <div class="row-items">
         <div  class="filter">
@@ -187,36 +163,32 @@ if (isset($_GET['id-courses'])) {
             </div>
         </form>
         </div>
-    <div class="grid-course row">
+        <div class="grid-course row">
 
-    <?php if (isset($courses) && !empty($courses)) : ?>
-        <?php while ($courses->have_posts()) : $courses->the_post(); 
-            $id_course = get_the_id();
-            ?>
-            <div class="paper-item col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                <a href="<?php echo '/resource?id-courses=' . $id_course; ?>" class="box-paper">
-                    <div class="paper-header">
-                        <div class="title"> <?php echo get_the_title($id_course); ?> </div>
-                        <div class="cover">
-                            <?php echo get_the_post_thumbnail($id_course, 'full'); ?>
+        <?php if (isset($courses) && !empty($courses)) : ?>
+            <?php while ($courses->have_posts()) : $courses->the_post(); 
+                $id_course = get_the_id();
+                ?>
+                <div class="paper-item col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                    <a href="<?php echo '/resource-details?id-courses=' . $id_course; ?>" class="box-paper">
+                        <div class="paper-header">
+                            <div class="title"> <?php echo get_the_title($id_course); ?> </div>
+                            <div class="cover">
+                                <?php echo get_the_post_thumbnail($id_course, 'full'); ?>
+                            </div>
                         </div>
+                        <div class="paper-progress">
+                            <p style="text-align: center;margin-bottom: 0px;font-weight:bolder">View Resources</p>
+                        </div>
+                        </a>
                     </div>
-                    <div class="paper-progress">
-                        <p style="text-align: center;margin-bottom: 0px;font-weight:bolder">View Resources</p>
-                    </div>
-                    </a>
-                </div>
-            
-            
-        <?php endwhile; ?>
-        <?php wp_reset_postdata(); ?>
-    <?php endif; ?>
+                
+                
+            <?php endwhile; ?>
+            <?php wp_reset_postdata(); ?>
+        <?php endif; ?>
     </div>
-    <?php pagination_post_author($max_num_pages, $count, $post_per_page); ?>    
+    <?php pagination_post_author($max_num_pages, $count, $post_per_page); ?>
+    </div>
 </div>
-
-
-    <?php
-}
-
-
+<?php
