@@ -3,6 +3,7 @@
 add_shortcode('online_page_section', 'online_paper_callback');
 
 function online_paper_callback(){
+    global $wpdb;
     $yeararr = get_taxonomy_terms_via_db('lp_year');
     $levelarr = get_taxonomy_terms_via_db('lp_grade');
     $subjectarr = get_taxonomy_terms_via_db('lp_subject'); 
@@ -54,21 +55,46 @@ function online_paper_callback(){
       }
     $post_per_page = 12;
     
+    $query = "
+    SELECT DISTINCT section.section_course_id , items.item_id, section.section_order
+    FROM fcs_data_learnpress_sections AS section 
+    LEFT JOIN fcs_data_learnpress_section_items AS items 
+    ON section.section_id = items.section_id 
+    WHERE items.item_type = 'lp_quiz' AND section.section_order = 1 AND items.item_order = 0
+    ";
+
+
+    $results = $wpdb->get_results($query);
+    
+    $item_ids = array();
+
+    foreach ($results as $item) {
+        $item_ids[] = intval($item->section_course_id);
+    }
+
+    foreach ($results as $quiz_items) {
+        $quiz_items_ids[] = intval($quiz_items->item_id);
+    }
+    
     $args = array(
         'post_type'     => 'lp_course',
-        'orderby'          => isset($_GET['orderby']) ? $_GET['orderby'] : 'title',
-        'order'            =>  isset($_GET['order']) ? $_GET['order'] : 'asc',
+        'orderby'          => 'date',
+        'order'            => 'DESC',
         'posts_per_page' => $post_per_page,
         'paged' => (get_query_var('paged') ? get_query_var('paged') : 1),
         'tax_query'     => $array_filter,
-        
+        'post__in' => $item_ids,
+        'orderby' => 'post__in',
     );
 
     $courses = new WP_Query($args);
+    
+    $i = 0;
 
-    $max_num_pages = 1;
-    $count = 0;
-?>
+    $max_num_pages = $courses->max_num_pages;
+
+    $count = $courses->found_posts;
+    ?>
 <div class="page-body">
     <div class="row-items">
         <div  class="filter">
@@ -148,14 +174,11 @@ function online_paper_callback(){
     <?php if (isset($courses) && !empty($courses)) : ?>
         <?php while ($courses->have_posts()) : $courses->the_post(); 
             $id_course = get_the_ID();
-            $quiz = get_quiz_by_id_course($id_course);
             
-            if(isset($quiz)){ 
-                $count = $count + 1;
             ?>
             
             <div class="paper-item col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                <a href="<?php echo esc_url(get_permalink($id_course)) . 'quizzes/' . $quiz[0]->post_name; ?>" class="box-paper">
+                <a href="<?php echo esc_url(get_permalink($id_course)) . 'quizzes/' . get_the_title(str_replace(" ", "-", $quiz_items_ids[$i])) ?>" class="box-paper">
                 <div class="paper-header">
                     <div class="title"> <?php echo get_the_title(); ?> </div>
                     <div class="cover">
@@ -172,16 +195,12 @@ function online_paper_callback(){
                 </div>
                 </a>
             </div>
-            <?php }?>
+            <?php $i = $i + 1;?>
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
     <?php endif; ?>
     </div>
-    <?php 
-        $max_num_pages = $count/$post_per_page; 
-       
-    ?>
-    <?php pagination_post_author(ceil($max_num_pages), $count, $post_per_page); ?>    
+    <?php pagination_post_author($max_num_pages, $count, $post_per_page); ?>    
 </div>
 
 <?php }
