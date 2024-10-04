@@ -75,25 +75,31 @@ function online_paper_callback(){
     foreach ($results as $quiz_items) {
         $quiz_items_ids[] = intval($quiz_items->item_id);
     }
+
+    if(!empty($item_ids)){
+        $args = array(
+            'post_type'     => 'lp_course',
+            'orderby'          => 'date',
+            'order'            => 'DESC',
+            'posts_per_page' => $post_per_page,
+            'paged' => (get_query_var('paged') ? get_query_var('paged') : 1),
+            'tax_query'     => $array_filter,
+            'post__in' => $item_ids,
+            'orderby' => 'post__in',
+        );
+    }else{
+        $args = array();
+    }
     
-    $args = array(
-        'post_type'     => 'lp_course',
-        'orderby'          => 'date',
-        'order'            => 'DESC',
-        'posts_per_page' => $post_per_page,
-        'paged' => (get_query_var('paged') ? get_query_var('paged') : 1),
-        'tax_query'     => $array_filter,
-        'post__in' => $item_ids,
-        'orderby' => 'post__in',
-    );
 
     $courses = new WP_Query($args);
-    
     $i = 0;
 
     $max_num_pages = $courses->max_num_pages;
 
     $count = $courses->found_posts;
+
+    $user_id = get_current_user_id();
     ?>
 <div class="page-body">
     <div class="row-items">
@@ -173,12 +179,22 @@ function online_paper_callback(){
     <div class="grid-course row">
     <?php if (isset($courses) && !empty($courses)) : ?>
         <?php while ($courses->have_posts()) : $courses->the_post(); 
+
             $id_course = get_the_ID();
+            $status_course = learn_press_get_user( $user_id )->get_course_status( $id_course );
             
             ?>
             
             <div class="paper-item col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                <a href="<?php echo esc_url(get_permalink($id_course)) . 'quizzes/' . get_the_title(str_replace(" ", "-", $quiz_items_ids[$i])) ?>" class="box-paper">
+                <a href="<?php 
+                
+                if($status_course == NULL){
+                    echo esc_url(get_permalink($id_course));
+                }else{
+                    echo esc_url(get_permalink($id_course)) . 'quizzes/' . get_the_title(str_replace(" ", "-", $quiz_items_ids[$i]));
+                }
+                 
+                ?>" class="box-paper">
                 <div class="paper-header">
                     <div class="title"> <?php echo get_the_title(); ?> </div>
                     <div class="cover">
