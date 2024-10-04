@@ -182,19 +182,18 @@ function online_paper_callback(){
 
             $id_course = get_the_ID();
             $status_course = learn_press_get_user( $user_id )->get_course_status( $id_course );
+            $url_action = '';
             
+            if($status_course == NULL){
+                $url_action = esc_url(get_permalink($id_course));
+            }else{
+                $url_action = esc_url(get_permalink($id_course)) . 'quizzes/' . get_the_title(str_replace(" ", "-", $quiz_items_ids[$i]));
+            }
+
             ?>
             
             <div class="paper-item col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                <a href="<?php 
-                
-                if($status_course == NULL){
-                    echo esc_url(get_permalink($id_course));
-                }else{
-                    echo esc_url(get_permalink($id_course)) . 'quizzes/' . get_the_title(str_replace(" ", "-", $quiz_items_ids[$i]));
-                }
-                 
-                ?>" class="box-paper">
+                <a href="<?php echo $url_action; ?>" class="box-paper">
                 <div class="paper-header">
                     <div class="title"> <?php echo get_the_title(); ?> </div>
                     <div class="cover">
