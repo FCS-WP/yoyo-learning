@@ -14,7 +14,7 @@ if (isset($_GET['id-courses'])) {
     $results = $wpdb->get_results($query);
     
     ?>
-    <h2 class="heading-resource">Resource <?php echo get_the_title($id_courses);?></h2>
+    <h2 class="heading-resource"><?php echo get_the_title($id_courses);?></h2>
     <div class="course-tab-panel-materials course-tab-panel" id="tab-materials">
   <div class="lp-list-material">   
             <div class="lp-material-skeleton">
