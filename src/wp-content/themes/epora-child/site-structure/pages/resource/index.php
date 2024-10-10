@@ -173,9 +173,7 @@ $yeararr = get_taxonomy_terms_via_db('lp_year');
                     <a href="<?php echo '/resource-details?id-courses=' . $id_course; ?>" class="box-paper">
                         <div class="paper-header">
                             <div class="title"> <?php echo get_the_title($id_course); ?> </div>
-                            <div class="cover">
-                                <?php echo get_the_post_thumbnail($id_course, 'full'); ?>
-                            </div>
+                            
                         </div>
                         <div class="paper-progress">
                             <p style="text-align: center;margin-bottom: 0px;font-weight:bolder">View Resources</p>
