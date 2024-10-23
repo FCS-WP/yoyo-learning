@@ -11,7 +11,4 @@ if (backCourseButton) {
     event.preventDefault(); 
     window.location.href = '/online-paper'; 
   });
-  return;
-}else{
-  return;
 }
