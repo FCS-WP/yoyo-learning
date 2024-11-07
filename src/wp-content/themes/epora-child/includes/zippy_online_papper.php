@@ -55,24 +55,25 @@ function online_paper_callback(){
       }
     $post_per_page = 12;
     
-    $query = "
-    SELECT DISTINCT section.section_course_id , items.item_id, section.section_order
-    FROM fcs_data_learnpress_sections AS section 
-    LEFT JOIN fcs_data_learnpress_section_items AS items 
-    ON section.section_id = items.section_id 
-    WHERE items.item_type = 'lp_quiz' AND section.section_order = 1 AND items.item_order = 0
-    ";
-
-
-    $results = $wpdb->get_results($query);
     
     $item_ids = array();
 
-    foreach ($results as $item) {
+    $query_origin = '
+            SELECT DISTINCT section.section_course_id , items.item_id, section.section_order 
+            FROM fcs_data_learnpress_sections AS section 
+            LEFT JOIN fcs_data_learnpress_section_items AS items ON section.section_id = items.section_id 
+            WHERE items.item_type = "lp_quiz" AND section.section_order = 1 AND items.item_order = 0
+            ';
+
+
+    $results_query = $wpdb->get_results($query_origin);
+
+
+    foreach ($results_query as $item) {
         $item_ids[] = intval($item->section_course_id);
     }
 
-    foreach ($results as $quiz_items) {
+    foreach ($results_query as $quiz_items) {
         $quiz_items_ids[] = intval($quiz_items->item_id);
     }
 
@@ -90,8 +91,7 @@ function online_paper_callback(){
     }else{
         $args = array();
     }
-    
-
+   
     $courses = new WP_Query($args);
     $i = 0;
 
@@ -181,13 +181,32 @@ function online_paper_callback(){
         <?php while ($courses->have_posts()) : $courses->the_post(); 
 
             $id_course = get_the_ID();
+            
+            $query = '
+            SELECT DISTINCT section.section_course_id , items.item_id, section.section_order 
+            FROM fcs_data_learnpress_sections AS section 
+            LEFT JOIN fcs_data_learnpress_section_items AS items ON section.section_id = items.section_id 
+            WHERE items.item_type = "lp_quiz" AND section.section_order = 1 AND items.item_order = 0 AND section.section_course_id = '. $id_course .'
+            ';
+
+
+            $results = $wpdb->get_results($query);
+            
+            $link_quiz = get_permalink($results[0]->item_id);
+            $domain_url = get_site_url()."/";
+            $relative_path_quiz = str_replace($domain_url, "", $link_quiz);
+            
+            if(empty($results)){
+                continue;
+            }
+
             $status_course = learn_press_get_user( $user_id )->get_course_status( $id_course );
             $url_action = '';
             
             if($status_course == NULL){
                 $url_action = esc_url(get_permalink($id_course));
             }else{
-                $url_action = esc_url(get_permalink($id_course)) . 'quizzes/' . get_the_title(str_replace(" ", "-", $quiz_items_ids[$i]));
+                $url_action = esc_url(get_permalink($id_course)) . $relative_path_quiz;
             }
 
             ?>
