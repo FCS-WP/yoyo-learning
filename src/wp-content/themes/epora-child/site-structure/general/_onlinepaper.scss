@@ -111,6 +111,13 @@
           height: 8px;
           background: #C9E9B2;
           border-radius: 4px;
+          position: relative;
+
+          .curent-process{
+            height: 8px;
+            background-color: #ffb606;
+            border-radius: 4px;
+          }
         }
       }
       .box-paper{

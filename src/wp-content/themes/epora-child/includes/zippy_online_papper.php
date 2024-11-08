@@ -93,7 +93,6 @@ function online_paper_callback(){
     }
    
     $courses = new WP_Query($args);
-    $i = 0;
 
     $max_num_pages = $courses->max_num_pages;
 
@@ -208,7 +207,8 @@ function online_paper_callback(){
             }else{
                 $url_action = esc_url(get_permalink($id_course)) . $relative_path_quiz;
             }
-
+            
+            $progress = learn_press_get_user(get_current_user_id())->get_course_data($id_course)->get_percent_completed_items();
             ?>
             
             <div class="paper-item col-xl-3 col-lg-3 col-md-6 col-sm-12">
@@ -220,16 +220,16 @@ function online_paper_callback(){
                     </div>
                 </div>
                 <div class="paper-progress">
-                    <p> Practice progress: <span class="ng-star-inserted">0%</span></p>
+                    <p> Practice progress: <span class="ng-star-inserted"><?php echo $progress?>%</span></p>
                     <div class="progress-bar">
                         <div class="progress-bar-content ng-star-inserted">
-                            <div style="width: 0%;"></div>
+                            <div class="curent-process" style="width: <?php echo $progress; ?>%;"></div>
                         </div>
                     </div>
                 </div>
                 </a>
             </div>
-            <?php $i = $i + 1;?>
+
         <?php endwhile; ?>
         <?php wp_reset_postdata(); ?>
     <?php endif; ?>
